@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stickerbomb Editor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div id="sidebar-header">
+        <h1>Stickerbomb</h1>
+        <p class="subtitle">Laptop Back Designer</p>
+      </div>
+
+      <section class="sidebar-section">
+        <h2>Canvas</h2>
+        <div class="canvas-presets">
+          <button class="preset-btn active" data-w="340" data-h="230">13" Laptop</button>
+          <button class="preset-btn" data-w="380" data-h="255">14" Laptop</button>
+          <button class="preset-btn" data-w="415" data-h="280">15" Laptop</button>
+          <button class="preset-btn" data-w="460" data-h="305">16" Laptop</button>
+        </div>
+        <div class="canvas-custom">
+          <label>W (mm): <input type="number" id="canvas-w" value="340" min="100" max="600" /></label>
+          <label>H (mm): <input type="number" id="canvas-h" value="230" min="100" max="500" /></label>
+          <button id="apply-canvas-size">Apply</button>
+        </div>
+        <div class="canvas-actions">
+          <label>Background:
+            <input type="color" id="bg-color" value="#ffffff" />
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="show-grid" checked /> Show grid
+          </label>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Add Stickers</h2>
+        <div id="upload-area" class="upload-area">
+          <input type="file" id="file-input" accept="image/*,.svg" multiple hidden />
+          <button id="upload-btn" class="btn-primary">+ Upload Images</button>
+          <p class="hint">PNG, JPG, SVG, WebP supported</p>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Sticker Library</h2>
+        <div id="sticker-library" class="sticker-library">
+          <!-- built-in sticker thumbnails injected here -->
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Selected Sticker</h2>
+        <div id="sticker-controls" class="sticker-controls disabled">
+          <div class="control-row">
+            <label>Scale
+              <input type="range" id="ctrl-scale" min="10" max="300" value="100" />
+              <span id="ctrl-scale-val">100%</span>
+            </label>
+          </div>
+          <div class="control-row">
+            <label>Rotate
+              <input type="range" id="ctrl-rotate" min="-180" max="180" value="0" />
+              <span id="ctrl-rotate-val">0°</span>
+            </label>
+          </div>
+          <div class="control-row">
+            <label>Opacity
+              <input type="range" id="ctrl-opacity" min="10" max="100" value="100" />
+              <span id="ctrl-opacity-val">100%</span>
+            </label>
+          </div>
+          <div class="control-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="ctrl-flip-h" /> Flip H
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="ctrl-flip-v" /> Flip V
+            </label>
+          </div>
+          <div class="control-row btn-row">
+            <button id="ctrl-duplicate" class="btn-secondary">Duplicate</button>
+            <button id="ctrl-delete" class="btn-danger">Delete</button>
+          </div>
+          <div class="control-row btn-row">
+            <button id="ctrl-bring-front" class="btn-secondary">To Front</button>
+            <button id="ctrl-send-back" class="btn-secondary">To Back</button>
+          </div>
+        </div>
+        <p id="no-selection-hint" class="hint">Click a sticker on the canvas to select it.</p>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Export</h2>
+        <div class="export-section">
+          <label>Resolution:
+            <select id="export-dpi">
+              <option value="150">150 DPI (screen)</option>
+              <option value="300" selected>300 DPI (print)</option>
+              <option value="600">600 DPI (high-res print)</option>
+            </select>
+          </label>
+          <button id="export-png" class="btn-primary">Save as PNG</button>
+          <button id="clear-canvas" class="btn-danger">Clear Canvas</button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Main canvas area -->
+    <main id="canvas-wrapper">
+      <div id="canvas-viewport">
+        <div id="canvas-zoom-controls">
+          <button id="zoom-in">+</button>
+          <span id="zoom-level">100%</span>
+          <button id="zoom-out">−</button>
+          <button id="zoom-fit">Fit</button>
+        </div>
+        <div id="canvas-container">
+          <canvas id="bg-canvas"></canvas>
+          <div id="sticker-layer"></div>
+          <canvas id="overlay-canvas"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
